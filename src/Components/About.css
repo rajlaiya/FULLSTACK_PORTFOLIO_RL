@@ -1,0 +1,42 @@
+.about-paragraph-font {
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+}
+
+/* Profile image with blend mode */
+.about-profile-img {
+  mix-blend-mode: screen;
+}
+
+/* About section container */
+.about-section-container {
+  max-height: 100vh;
+}
+
+/* Mobile: remove max height constraint */
+@media (max-width: 768px) {
+  .about-section-container {
+    max-height: none;
+  }
+}
+
+/* Subtle floating animation for profile wrapper */
+@keyframes aboutFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* Soft glow pulsing (optional utility if needed later) */
+@keyframes aboutGlow {
+  0%, 100% { box-shadow: 0 0 24px rgba(59,130,246,0.35); }
+  50% { box-shadow: 0 0 36px rgba(59,130,246,0.55); }
+}
+
+/* Slight hover lift for the image */
+.profile-img-animate {
+  transition: transform 300ms ease, filter 300ms ease;
+}
+.profile-img-animate:hover {
+  transform: translateY(-4px) scale(1.01);
+  filter: saturate(1.05);
+}

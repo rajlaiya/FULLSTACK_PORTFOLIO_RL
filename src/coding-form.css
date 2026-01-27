@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+
+.coding-form {
+  background: #181c24;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 40px #0ea5e955, 0 1.5px 8px #0002;
+  font-family: 'Fira Code', 'JetBrains Mono', 'monospace';
+  color: #e0e6ed;
+  border: 1.5px solid #23272e;
+  position: relative;
+}
+.coding-form label {
+  color: #7dd3fc;
+  font-size: 0.95rem;
+  font-family: 'Fira Code', 'JetBrains Mono', 'monospace';
+}
+.coding-form input,
+.coding-form textarea {
+  background: #23272e;
+  color: #e0e6ed;
+  border: 1.5px solid #334155;
+  font-family: 'Fira Code', 'JetBrains Mono', 'monospace';
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.coding-form input:focus,
+.coding-form textarea:focus {
+  border: 1.5px solid #38bdf8;
+  box-shadow: 0 0 0 2px #38bdf855;
+}
+.coding-form .input-error {
+  border-color: #ef4444 !important;
+  animation: shake 0.4s;
+}
+.coding-form .typing-cursor {
+  display: inline-block;
+  width: 1ch;
+  background: #38bdf8;
+  height: 1.1em;
+  margin-left: 2px;
+  animation: blink 1s steps(2, start) infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

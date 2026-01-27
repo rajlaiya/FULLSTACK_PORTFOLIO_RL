@@ -1,0 +1,21 @@
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.skills-animated-bg {
+  background: linear-gradient(270deg, #3b82f6, #6366f1, #0ea5e9, #a21caf, #3b82f6);
+  background-size: 1200% 1200%;
+  animation: bgMove 18s ease-in-out infinite;
+}
+
+@keyframes textPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12) rotate(-2deg); }
+  100% { transform: scale(1); }
+}
+
+.skill-animate-text {
+  animation: textPop 1.8s cubic-bezier(.36,1.01,.32,1) infinite;
+}

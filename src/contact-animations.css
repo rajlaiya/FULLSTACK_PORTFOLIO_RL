@@ -1,0 +1,32 @@
+@keyframes contactBgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.contact-animated-bg {
+  background: linear-gradient(120deg, #3b82f6, #6366f1, #0ea5e9, #a21caf, #3b82f6);
+  background-size: 1200% 1200%;
+  animation: contactBgMove 18s ease-in-out infinite;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+  animation: shake 0.4s;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.contact-fade-in {
+  animation: fadeInUp 1s cubic-bezier(.36,1.01,.32,1) both;
+}

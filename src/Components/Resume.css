@@ -1,0 +1,14 @@
+.scroll-smooth::-webkit-scrollbar {
+  width: 10px;
+  background: #e0e7ef;
+}
+.scroll-smooth::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3b82f6 30%, #6366f1 100%);
+  border-radius: 6px;
+}
+.scroll-smooth::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2563eb 30%, #7c3aed 100%);
+}
+.resume-iframe {
+  border: none;
+}
