@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 type StackType = 'frontend' | 'backend' | 'both';
 
-const projects = [
+export const projects = [
 	{
 		title: 'Intern Management Portal',
 		description:
@@ -70,17 +70,17 @@ const projects = [
 			'three.js',
 		],
 		image:
-			'https://miro.medium.com/v2/resize:fit:1123/1*6C702o6cpNyLm27WLdZyjg.png',
-		live: 'https://rajlaiya-portfolio.netlify.app/',
+			'src/assets/portfolioimg.jpg',
+		live: 'https://raj-laiya-developer-portfolio.netlify.app/',
 		status: 'Done',
-		stack: 'frontend' as StackType,
+		stack: 'Fullstack' as StackType,
 		mini: false,
 	},
 
 	{
 		title: 'Crazy Academy Website',
 		description:
-			'A responsive website for Astha school, showcasing courses, faculty, and admission details with a modern design.',
+			'A responsive website for Crazy Academy, showcasing courses, faculty, and admission details with a modern design.',
 		tech: [
 			'Html',
 			'Tailwind CSS',
@@ -91,7 +91,7 @@ const projects = [
 		],
 
 		image:
-			'https://plus.unsplash.com/premium_photo-1677187301535-b46cec7b2cc8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c2Nob29sJTIwd2Vic2l0ZXxlbnwwfDB8MHx8fDA%3D',
+			'src/assets/008.jpg',
 		live: 'https://the-crazy-academy.netlify.app/',
 		status: 'done',
 		stack: 'frontend' as StackType,
@@ -233,6 +233,7 @@ const MiniProjects = () => (
 							src={project.image}
 							alt={project.title}
 							className="h-40 w-full object-cover"
+							loading="lazy"
 						/>
 												<div className="p-6 flex-1 flex flex-col">
 														{project.stack && (
@@ -308,6 +309,7 @@ const Projects = () => (
 								src={project.image}
 								alt={project.title}
 								className="h-40 w-full object-cover"
+								loading="lazy"
 							/>
 														<div className="p-4 flex-1 flex flex-col">
 																{project.stack && (

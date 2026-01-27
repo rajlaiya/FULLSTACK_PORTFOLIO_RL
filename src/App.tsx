@@ -3,7 +3,7 @@ import Header from './Components/Header';
 import Hero3D from './Components/Hero3D';
 import About from './Components/About';
 import Skills from './Components/Skills';
-import Projects from './Components/Projects';
+import Projects, { projects as projectList } from './Components/Projects';
 import Contact from './Components/Contact';
 import Loader from './Pages/loder';
 import History from './Components/History';
@@ -14,6 +14,10 @@ import Poppop from './Pages/poppop';
 import './mobile.css'; // Adjust the path if needed
 import Freelancer from './Components/freelancer';
 import Socialmedia from './Components/Socialmedia';
+
+const META_TITLE = 'Raj Laiya | Full Stack Developer Portfolio (React, Vue, Node.js, TypeScript)';
+const META_DESCRIPTION = 'Portfolio of Raj Laiya, a full-stack developer specializing in React, Vue, Node.js, and TypeScript. Explore SaaS, e-commerce, and 3D web projects and hire me for high-performance, secure builds.';
+const BASE_URL = 'https://rajlaiya.github.io/portfolio/';
 
 const sectionComponents = {
   hero: Hero3D,
@@ -41,6 +45,138 @@ function App() {
     document.documentElement.classList.add(theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  // Keep head metadata and structured data in sync for SEO crawlers
+  useEffect(() => {
+    document.title = META_TITLE;
+
+    const setMetaContent = (selector: string, content: string) => {
+      const el = document.querySelector<HTMLMetaElement>(selector);
+      if (el) el.setAttribute('content', content);
+    };
+
+    setMetaContent('meta[name="description"]', META_DESCRIPTION);
+    setMetaContent('meta[name="title"]', META_TITLE);
+    setMetaContent('meta[property="og:title"]', META_TITLE);
+    setMetaContent('meta[property="og:description"]', META_DESCRIPTION);
+    setMetaContent('meta[property="twitter:title"]', META_TITLE);
+    setMetaContent('meta[property="twitter:description"]', META_DESCRIPTION);
+  }, []);
+
+  useEffect(() => {
+    const toAbsoluteUrl = (url: string) => {
+      if (!url) return BASE_URL;
+      if (url.startsWith('http')) return url;
+      return `${BASE_URL}${encodeURI(url.replace(/^\//, ''))}`;
+    };
+
+    const projectItems = projectList
+      .filter((p) => !p.mini)
+      .slice(0, 8)
+      .map((project, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: project.live && project.live !== '#' ? project.live : `${BASE_URL}#projects`,
+        item: {
+          '@type': 'CreativeWork',
+          name: project.title,
+          description: project.description,
+          url: project.live && project.live !== '#' ? project.live : `${BASE_URL}#projects`,
+          image: toAbsoluteUrl(project.image),
+          inLanguage: 'en',
+        },
+      }));
+
+    const schemas = [
+      {
+        id: 'ld-json-person',
+        data: {
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Raj Laiya',
+          jobTitle: 'Full Stack Developer',
+          url: BASE_URL,
+          image: 'https://rajlaiya.github.io/portfolio/assets/IMG_Raj.jpg',
+          email: 'mailto:rajlaiya2017@gmail.com',
+          telephone: '+916355705208',
+          sameAs: [
+            'https://www.linkedin.com/in/laiya-raj-y21e502d01',
+            'https://github.com/rajlaiya',
+            'https://rajlaiya.github.io/portfolio/',
+            'https://www.youtube.com/@rajlaiya',
+          ],
+          knowsAbout: [
+            'React',
+            'Vue.js',
+            'Node.js',
+            'TypeScript',
+            'Tailwind CSS',
+            'REST APIs',
+            'Full Stack Development',
+            'Frontend Development',
+            'Backend Development',
+            'SEO',
+          ],
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Freelance',
+          },
+        },
+      },
+      {
+        id: 'ld-json-website',
+        data: {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Raj Laiya Portfolio',
+          url: BASE_URL,
+          description: META_DESCRIPTION,
+          inLanguage: 'en',
+          publisher: {
+            '@type': 'Person',
+            name: 'Raj Laiya',
+            url: BASE_URL,
+          },
+          potentialAction: {
+            '@type': 'ContactAction',
+            target: [
+              'mailto:rajlaiya2017@gmail.com',
+              'tel:+916355705208',
+              `${BASE_URL}#contact`,
+            ],
+            name: 'Contact Raj Laiya',
+          },
+        },
+      },
+      {
+        id: 'ld-json-projects',
+        data: {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Highlighted Projects',
+          itemListOrder: 'Ascending',
+          itemListElement: projectItems,
+        },
+      },
+    ];
+
+    schemas.forEach(({ id, data }) => {
+      const existing = document.getElementById(id);
+      if (existing) existing.remove();
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.id = id;
+      script.text = JSON.stringify(data);
+      document.head.appendChild(script);
+    });
+
+    return () => {
+      schemas.forEach(({ id }) => {
+        const node = document.getElementById(id);
+        if (node?.parentNode) node.parentNode.removeChild(node);
+      });
+    };
+  }, []);
 
   useEffect(() => {
     const onHashChange = () => {

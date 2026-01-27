@@ -62,7 +62,7 @@ const About = () => {
         <div className="flex flex-wrap gap-4 mt-2 w-full max-w-3xl">
           {skills.map((skill, i) => (
             <span key={i} className="flex items-center gap-2 bg-white/80 dark:bg-gray-900/80 text-blue-700 dark:text-blue-200 px-5 py-2.5 rounded-full text-base font-mono shadow skill-badge-animate border border-blue-200 dark:border-blue-800">
-              <img src={skill.icon} alt={skill.name} className="w-7 h-7" />
+              <img src={skill.icon} alt={skill.name} className="w-7 h-7" loading="lazy" />
               <span className="skill-animate-text">{skill.name}</span>
             </span>
           ))}
@@ -88,7 +88,7 @@ const About = () => {
       
       {/* Profile image - shows after scrolling on mobile, on right side on desktop */}
       <div ref={imageRef} className="flex-1 flex justify-center items-start w-full about-slide-in-right about-delay-200 md:-mt-56">
-        <img src={newImg} alt="Profile" className="about-profile-img w-full max-w-2xl h-auto object-contain" />
+        <img src={newImg} alt="Portrait of Raj Laiya, Full Stack Developer" className="about-profile-img w-full max-w-2xl h-auto object-contain" loading="lazy" />
       </div>
     </div>
   </div>
