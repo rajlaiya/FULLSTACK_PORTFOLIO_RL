@@ -41,7 +41,7 @@ export const projects = [
 		tech: ['ReactJS', 'React router', 'Vite'],
 		github: '#',
 		image: techCompanyImg,
-		live: '#',
+		live: 'https://finel-project-tech.netlify.app/',
 		status: 'done',
 		stack: 'frontend' as StackType,
 		mini: false,
