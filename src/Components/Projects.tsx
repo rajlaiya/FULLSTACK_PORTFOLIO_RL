@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
 // import { FaL } from 'react-icons/fa6';
+import techCompanyImg from '../assets/tech company.jpg';
+import visualEditsImg from '../assets/visual edits.png';
+import portfolioImg from '../assets/portfolioimg.jpg';
+import academyImg from '../assets/008.jpg';
 
 type StackType = 'frontend' | 'backend' | 'both';
 
@@ -36,8 +40,7 @@ export const projects = [
 			'A modern and responsive website for a tech company, showcasing services, team members, and contact information.',
 		tech: ['ReactJS', 'React router', 'Vite'],
 		github: '#',
-		image:
-			'src/assets/tech company.jpg',
+		image: techCompanyImg,
 		live: '#',
 		status: 'done',
 		stack: 'frontend' as StackType,
@@ -49,8 +52,7 @@ export const projects = [
 			'A creative portfolio website for a visual editing agency, highlighting past projects and client testimonials.',
 		tech: ['ReactJS', 'React router', 'Vite'],
 		github: '#',
-		image:
-			'src/assets/visual edits.png',
+		image: visualEditsImg,
 		live: 'https://visualedit.netlify.app/',
 		status: 'done',
 		stack: 'frontend' as StackType,
@@ -69,8 +71,7 @@ export const projects = [
 			'EmailJS',
 			'three.js',
 		],
-		image:
-			'src/assets/portfolioimg.jpg',
+		image: portfolioImg,
 		live: 'https://raj-laiya-developer-portfolio.netlify.app/',
 		status: 'Done',
 		stack: 'Fullstack' as StackType,
@@ -90,8 +91,7 @@ export const projects = [
 			'unsplash',
 		],
 
-		image:
-			'src/assets/008.jpg',
+		image: academyImg,
 		live: 'https://the-crazy-academy.netlify.app/',
 		status: 'done',
 		stack: 'frontend' as StackType,
