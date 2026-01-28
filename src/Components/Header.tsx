@@ -10,6 +10,7 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
   const [dropdown, setDropdown] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -24,6 +25,26 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdown]);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    function handleClickOutsideMobile(event: MouseEvent | TouchEvent) {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setMobileMenu(false);
+      }
+    }
+    if (mobileMenu) {
+      document.addEventListener('mousedown', handleClickOutsideMobile);
+      document.addEventListener('touchstart', handleClickOutsideMobile);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutsideMobile);
+      document.removeEventListener('touchstart', handleClickOutsideMobile);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideMobile);
+      document.removeEventListener('touchstart', handleClickOutsideMobile);
+    };
+  }, [mobileMenu]);
 
   // Hide mobile menu on navigation
   useEffect(() => {
@@ -113,7 +134,7 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
       {mobileMenu && (
         <>
           <div className="mobile-sidebar-backdrop" onClick={() => setMobileMenu(false)} />
-          <nav className="mobile-sidebar-menu" onClick={e => e.stopPropagation()}>
+          <nav ref={mobileMenuRef} className="mobile-sidebar-menu" onClick={e => e.stopPropagation()}>
             <button
               type="button"
               className="close-btn"

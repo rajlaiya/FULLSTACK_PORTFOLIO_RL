@@ -34,7 +34,7 @@ const sectionComponents = {
 
 function App() {
   const [theme, setTheme] = useState(
-    localStorage.getItem('theme') || 'light'
+    localStorage.getItem('theme') || 'dark'
   );
   const [section, setSection] = useState('hero');
   const [loading, setLoading] = useState(true);

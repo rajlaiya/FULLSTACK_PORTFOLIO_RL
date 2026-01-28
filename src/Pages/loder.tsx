@@ -3,106 +3,109 @@ import styled from 'styled-components';
 const Loader = () => {
   return (
     <StyledWrapper>
-      <div className="atom" aria-label="Loading">
-        <div className="electron e1" />
-        <div className="electron e2" />
-        <div className="electron e3" />
-        <div className="nucleus" />
+      <div className="loader-content">
+        <div className="brand-text">CODING WITH RL</div>
+        <div className="spinner">
+          <div className="dot dot1"></div>
+          <div className="dot dot2"></div>
+          <div className="dot dot3"></div>
+        </div>
       </div>
-      <div className="caption">Coding with rl</div>
     </StyledWrapper>
   );
 };
 
 const StyledWrapper = styled.div`
-  --size: 220px; /* larger */
-  --color: #31a4cc;
-  --text: #e5e7eb;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 18px;
   min-height: 100vh;
   width: 100vw;
-  background: transparent;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 
-  .atom {
+  .loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .brand-text {
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: clamp(1.8rem, 6vw, 3.5rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
     position: relative;
-    width: var(--size);
-    height: var(--size);
   }
 
-  /* orbits */
-  .electron {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-left-color: color-mix(in oklab, var(--color) 60%, transparent);
-    border-top-color: color-mix(in oklab, var(--color) 35%, transparent);
-    filter: drop-shadow(0 0 10px color-mix(in oklab, var(--color) 50%, transparent));
-    animation: spin 1.8s linear infinite;
-  }
-
-  .electron::before {
+  .brand-text::after {
     content: '';
     position: absolute;
-    top: -7px; /* at top of the orbit */
+    bottom: -12px;
     left: 50%;
     transform: translateX(-50%);
-    width: 14px;
-    height: 14px;
-    background: var(--color);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
+    border-radius: 2px;
+  }
+
+  .spinner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    box-shadow: 0 0 10px var(--color), 0 0 20px var(--color);
+    background: #3b82f6;
+    animation: bounce 1.4s ease-in-out infinite;
   }
 
-  .e1 { transform: rotate(0deg); }
-  .e2 { transform: rotate(60deg); animation-duration: 2.2s; }
-  .e3 { transform: rotate(120deg); animation-duration: 1.6s; }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+  .dot1 {
+    animation-delay: 0s;
+    background: #3b82f6;
   }
 
-  /* nucleus */
-  .nucleus {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle at 30% 30%, #ffffff, var(--color));
-    box-shadow: 0 0 18px var(--color), inset 0 0 6px rgba(255,255,255,.6);
+  .dot2 {
+    animation-delay: 0.2s;
+    background: #8b5cf6;
   }
 
-  .caption {
-    font-family: 'Fira Code', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-weight: 800; /* extrabold */
-    letter-spacing: 0.02em;
-    background: linear-gradient(90deg, #34d399 0%, #3b82f6 50%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    text-shadow: 0 2px 10px rgba(99,102,241,.25);
-    animation: pulseGlow 1.8s ease-in-out infinite;
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
+  .dot3 {
+    animation-delay: 0.4s;
+    background: #06b6d4;
   }
 
-  @keyframes pulseGlow {
-    0%, 100% {
-      text-shadow: 0 2px 10px rgba(99,102,241,.25);
+  @keyframes bounce {
+    0%, 80%, 100% {
+      transform: scale(0.6);
+      opacity: 0.5;
     }
-    50% {
-      text-shadow: 0 4px 18px rgba(59,130,246,.45);
+    40% {
+      transform: scale(1);
+      opacity: 1;
     }
   }
 
   @media (max-width: 600px) {
-    --size: 160px;
+    .brand-text {
+      letter-spacing: 0.1em;
+    }
+    
+    .dot {
+      width: 10px;
+      height: 10px;
+    }
+    
+    .spinner {
+      gap: 10px;
+    }
   }
 `;
 

@@ -1,5 +1,5 @@
 // import './Hero3D.css'; // Assuming you have a separate CSS file for styles
-import resumePDF from '../Doduments/RAJ_LAIYA_RESUME_2026.pdf';
+import resumePDF from '../Documents/RAJ_LAIYA_RESUME_2026.pdf';
 
 const Hero3D = () => (
   <section className="relative bg-gradient-to-br from-blue-50 via-purple-100 to-pink-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-950 dark:to-black py-12 md:py-16 px-6 md:px-8 min-h-[calc(100vh-var(--nav-h))] max-h-[calc(100vh-var(--nav-h))] flex items-center justify-center transition-colors duration-500 font-mono overflow-hidden" id="hero">

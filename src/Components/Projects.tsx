@@ -104,7 +104,7 @@ export const projects = [
 		tech: ['Vue3', 'Typescript', 'AI', 'Vite', 'Tailwind CSS', 'Unsplash'],
 		image:
 			'https://media.istockphoto.com/id/1300640747/photo/online-food-delivery-mobile-app-shown-on-smart-phone-screen-hold-by-asian-man-hands-in-front.webp?a=1&b=1&s=612x612&w=0&k=20&c=x0_HbM_gn4BAuFKnERRYY953Ze8Amz026QCI20BwG40=',
-		live: 'https://foodieshome.netlify.app/about',
+		live: 'https://foodies-cloud-kitchen.netlify.app/',
 		status: 'done',
 		stack: 'frontend' as StackType,
 		mini: false,
@@ -259,14 +259,6 @@ const MiniProjects = () => (
 							</div>
 							<div className="flex gap-4 mt-auto">
 								<a
-									href={project.github}
-									className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									GitHub
-								</a>
-								<a
 									href={project.live}
 									className="text-green-600 dark:text-green-400 hover:underline font-semibold"
 									target="_blank"
@@ -334,14 +326,6 @@ const Projects = () => (
 									))}
 								</div>
 								<div className="flex gap-4 mt-auto">
-									<a
-										href={project.github}
-										className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										GitHub
-									</a>
 									<a
 										href={project.live}
 										className="text-green-600 dark:text-green-400 hover:underline font-semibold"
