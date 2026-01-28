@@ -36,7 +36,12 @@ function App() {
   const [theme, setTheme] = useState(
     localStorage.getItem('theme') || 'dark'
   );
-  const [section, setSection] = useState('hero');
+  const [section, setSection] = useState(() => {
+    // Restore last visited section from localStorage
+    const savedSection = localStorage.getItem('lastSection');
+    const hash = window.location.hash.replace('#', '');
+    return hash || savedSection || 'hero';
+  });
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -45,6 +50,11 @@ function App() {
     document.documentElement.classList.add(theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  // Save current section to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('lastSection', section);
+  }, [section]);
 
   // Keep head metadata and structured data in sync for SEO crawlers
   useEffect(() => {
@@ -194,6 +204,12 @@ function App() {
       // Show cookie popup only if not previously accepted
       const consent = localStorage.getItem('cookieConsent');
       setShowPopup(!consent);
+      
+      // Restore last section after loading
+      const savedSection = localStorage.getItem('lastSection');
+      if (savedSection && !window.location.hash) {
+        window.location.hash = savedSection;
+      }
     }, 1500); // 1.5s loader
     return () => clearTimeout(timer);
   }, []);
