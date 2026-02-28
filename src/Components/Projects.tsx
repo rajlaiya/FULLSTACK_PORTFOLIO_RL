@@ -13,7 +13,7 @@ export const projects = [
 		description:
 			'A web application for managing intern applications, including form submission, validation, and data storage.',
 		tech: ['Html', 'typescript', 'CSS'],
-		github: 'https://github.com/rajlaiya/INTERN_FORM_USING-JS-TS',
+		github: '#',
 		image:
 			'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1hbmFnZW1lbnR8ZW58MHx8MHx8fDA%3D',
 		live: 'https://rajlaiya.github.io/INTERN_FORM_USING-JS-TS/',
@@ -25,7 +25,7 @@ export const projects = [
 		title: 'Honey E-commerce',
 		description:
 			'A responsive e-commerce website for a fictional brand "Honey", featuring product listings, shopping cart, and checkout functionality.',
-		tech: ['Vuejs', 'Vite', 'Vuetify', 'typescript', 'EmailJS'],
+		tech: ['Nextjs', 'Vite', 'typescript', 'EmailJS'],
 		github: '#',
 		image:
 			'https://media.istockphoto.com/id/2148297623/photo/clear-glass-honey-jar-mockup-for-packaging-label-3d-rendering-on-isolated-background.webp?a=1&b=1&s=612x612&w=0&k=20&c=qtrLspNo_ldbb_NqAczaEX08dJ_3YmvB4w5uEKZJcAI=',
