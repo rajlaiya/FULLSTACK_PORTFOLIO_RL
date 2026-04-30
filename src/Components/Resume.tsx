@@ -1,4 +1,5 @@
 import './Resume.css'; // Add this at the top
+import resumePDF from '../Documents/RAJ_LAIYA_RESUME_2026R.pdf';
 
 // const resumeData = {
 //   name: 'John Doe',
@@ -47,7 +48,7 @@ const Resume = () => (
     <div className="w-full max-w-4xl flex-1 flex justify-center items-center">
       <div className="w-full h-[80vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border-2 border-blue-200 dark:border-blue-800 relative">
         <iframe
-          src="/RAJ_LAIYA_RESUME_2025.pdf"
+          src={resumePDF}
           title="Resume PDF"
           className="w-full h-full overflow-auto scroll-smooth resume-iframe"
         />
