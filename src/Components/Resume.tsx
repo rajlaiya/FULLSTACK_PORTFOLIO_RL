@@ -1,5 +1,5 @@
 import './Resume.css'; // Add this at the top
-import resumePDF from '../Documents/RAJ_LAIYA_RESUME_2026R.pdf';
+import resumePDF from '../Documents/RAJ_LAIYA_RESUME_2026.pdf';
 
 // const resumeData = {
 //   name: 'John Doe',
