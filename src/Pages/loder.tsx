@@ -1,14 +1,12 @@
 import styled from 'styled-components';
+import serviceLogo from '../assets/service_logo.png';
 
 const Loader = () => {
   return (
     <StyledWrapper>
       <div className="loader-content">
-        <div className="brand-text">CODING WITH RL</div>
-        <div className="spinner">
-          <div className="dot dot1"></div>
-          <div className="dot dot2"></div>
-          <div className="dot dot3"></div>
+        <div className="logo-container">
+          <img src={serviceLogo} alt="Coding With RL Logo" className="brand-logo" />
         </div>
       </div>
     </StyledWrapper>
@@ -20,93 +18,41 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
   width: 100vw;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  height: 100vh;
+  background: #000000; /* Complete solid black background */
 
   .loader-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
   }
 
-  .brand-text {
-    font-family: 'Fira Code', 'JetBrains Mono', monospace;
-    font-size: clamp(1.8rem, 6vw, 3.5rem);
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
   }
 
-  .brand-text::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
-    border-radius: 2px;
-  }
-
-  .spinner {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #3b82f6;
-    animation: bounce 1.4s ease-in-out infinite;
-  }
-
-  .dot1 {
-    animation-delay: 0s;
-    background: #3b82f6;
-  }
-
-  .dot2 {
-    animation-delay: 0.2s;
-    background: #8b5cf6;
-  }
-
-  .dot3 {
-    animation-delay: 0.4s;
-    background: #06b6d4;
-  }
-
-  @keyframes bounce {
-    0%, 80%, 100% {
-      transform: scale(0.6);
-      opacity: 0.5;
-    }
-    40% {
-      transform: scale(1);
-      opacity: 1;
-    }
+  .brand-logo {
+    width: clamp(280px, 60vw, 550px);
+    height: auto;
+    object-fit: contain;
   }
 
   @media (max-width: 600px) {
-    .brand-text {
-      letter-spacing: 0.1em;
-    }
-    
-    .dot {
-      width: 10px;
-      height: 10px;
-    }
-    
-    .spinner {
-      gap: 10px;
+    .brand-logo {
+      width: clamp(220px, 75vw, 280px);
     }
   }
 `;
 
 export default Loader;
+
