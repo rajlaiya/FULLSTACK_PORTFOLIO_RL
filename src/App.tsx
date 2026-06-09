@@ -14,6 +14,7 @@ import Poppop from './Pages/poppop';
 import './mobile.css'; // Adjust the path if needed
 import Freelancer from './Components/freelancer';
 import Socialmedia from './Components/Socialmedia';
+import { FaArrowUp } from 'react-icons/fa';
 
 const META_TITLE = 'Raj Laiya | MERN Stack Developer Portfolio (React, Vue, Node.js, TypeScript)';
 const META_DESCRIPTION = 'Portfolio of Raj Laiya, a MERN Stack developer specializing in React, Vue, Node.js, and TypeScript. Explore SaaS, e-commerce, and 3D web projects and hire me for high-performance, secure builds.';
@@ -44,6 +45,19 @@ function App() {
   });
   const [loading, setLoading] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.remove('light', 'dark');
@@ -232,11 +246,20 @@ function App() {
 
   return (
     <div className={`min-h-screen font-sans transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
-        <Header theme={theme} setTheme={setTheme} />
+        <Header theme={theme} setTheme={setTheme} activeSection={section} />
         <main className="pt-[var(--nav-h)]">
   <SectionComponent />
   <Poppop show={showPopup} onClose={handleAcceptCookies} />
       </main>
+      {showBackToTop && ['skills', 'projects', 'services'].includes(section) && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-8 right-8 z-50 p-4 rounded-full bg-blue-600/90 hover:bg-blue-600 dark:bg-blue-500/90 dark:hover:bg-blue-500 text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:scale-110 active:scale-95 flex items-center justify-center cursor-pointer border border-white/10 dark:border-black/10 animate-fade-in"
+          aria-label="Back to top"
+        >
+          <FaArrowUp className="w-5 h-5 animate-pulse" />
+        </button>
+      )}
       {showFooter && (
         <footer className="text-center py-6 text-gray-500 text-sm bg-white dark:bg-gray-800 border-t mt-10 dark:text-gray-400">
           &copy; {new Date().getFullYear()} Raj laiya. All rights reserved.

@@ -5,9 +5,10 @@ import serviceLogo from '../assets/service_logo.png';
 interface HeaderProps {
   theme: string;
   setTheme: (theme: string) => void;
+  activeSection?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
+const Header: React.FC<HeaderProps> = ({ theme, setTheme, activeSection }) => {
   const [dropdown, setDropdown] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -108,22 +109,26 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
           </div>
 
           <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <a href="#hero" className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Home</a>
-            <a href="#about" className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">About</a>
-            <a href="#skills" className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Skills</a>
-            <a href="#projects" className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Projects</a>
-            <a href="#contact" className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Contact</a>
+            <a href="#hero" className={`font-medium transition-colors ${activeSection === 'hero' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>Home</a>
+            <a href="#about" className={`font-medium transition-colors ${activeSection === 'about' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>About</a>
+            <a href="#skills" className={`font-medium transition-colors ${activeSection === 'skills' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>Skills</a>
+            <a href="#projects" className={`font-medium transition-colors ${activeSection === 'projects' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>Projects</a>
+            <a href="#contact" className={`font-medium transition-colors ${activeSection === 'contact' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>Contact</a>
             <div className="relative inline-block" ref={dropdownRef}>
               <button
                 onClick={() => setDropdown((d) => !d)}
-                className="ml-4 px-4 py-2 bg-blue-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 rounded-lg font-medium hover:bg-blue-200 dark:hover:bg-gray-700 transition flex items-center gap-2"
+                className={`ml-4 px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 ${
+                  activeSection === 'services' || activeSection === 'socialmedia'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm'
+                    : 'bg-blue-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-gray-700'
+                }`}
               >
                 Other <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
               </button>
               {dropdown && (
                 <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-lg shadow-lg z-50 border border-blue-100 dark:border-gray-800 animate-fade-in">
-                  <a href="#services" className="block px-4 py-2 hover:bg-blue-50 dark:hover:bg-gray-800 text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors" onClick={() => setDropdown(false)}>Services</a>
-                  <a href="#socialmedia" className="block px-4 py-2 hover:bg-blue-50 dark:hover:bg-gray-800 text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors" onClick={() => setDropdown(false)}>Socialmedia</a>
+                  <a href="#services" className={`block px-4 py-2 transition-colors ${activeSection === 'services' ? 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400 font-semibold' : 'hover:bg-blue-50 dark:hover:bg-gray-800 text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`} onClick={() => setDropdown(false)}>Services</a>
+                  <a href="#socialmedia" className={`block px-4 py-2 transition-colors ${activeSection === 'socialmedia' ? 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400 font-semibold' : 'hover:bg-blue-50 dark:hover:bg-gray-800 text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`} onClick={() => setDropdown(false)}>Socialmedia</a>
                 </div>
               )}
             </div>
@@ -176,13 +181,13 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
             >
               ×
             </button>
-            <a className="menu-item" href="#hero" onClick={() => setMobileMenu(false)}>Home</a>
-            <a className="menu-item" href="#about" onClick={() => setMobileMenu(false)}>About</a>
-            <a className="menu-item" href="#skills" onClick={() => setMobileMenu(false)}>Skills</a>
-            <a className="menu-item" href="#projects" onClick={() => setMobileMenu(false)}>Projects</a>
-            <a className="menu-item" href="#contact" onClick={() => setMobileMenu(false)}>Contact</a>
-            <a className="menu-item" href="#services" onClick={() => setMobileMenu(false)}>Services</a>
-            <a className="menu-item" href="#socialmedia" onClick={() => setMobileMenu(false)}>Socialmedia</a>
+            <a className={`menu-item ${activeSection === 'hero' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#hero" onClick={() => setMobileMenu(false)}>Home</a>
+            <a className={`menu-item ${activeSection === 'about' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#about" onClick={() => setMobileMenu(false)}>About</a>
+            <a className={`menu-item ${activeSection === 'skills' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#skills" onClick={() => setMobileMenu(false)}>Skills</a>
+            <a className={`menu-item ${activeSection === 'projects' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#projects" onClick={() => setMobileMenu(false)}>Projects</a>
+            <a className={`menu-item ${activeSection === 'contact' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#contact" onClick={() => setMobileMenu(false)}>Contact</a>
+            <a className={`menu-item ${activeSection === 'services' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#services" onClick={() => setMobileMenu(false)}>Services</a>
+            <a className={`menu-item ${activeSection === 'socialmedia' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#socialmedia" onClick={() => setMobileMenu(false)}>Socialmedia</a>
             <button
               type="button"
               className="menu-item"
