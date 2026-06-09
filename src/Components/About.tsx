@@ -55,7 +55,7 @@ const About = () => {
       <div className="flex-1 flex flex-col items-center md:items-start w-full px-0 md:px-0 about-slide-in-left about-delay-100">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-white drop-shadow-lg tracking-tight about-title-font">About Me</h2>
   <p className="text-gray-100 text-lg md:text-xl leading-relaxed mb-6 md:mb-8 w-full max-w-3xl about-paragraph-font">
-          <span className="text-blue-200 font-bold">Fullstack Developer</span> with 1+ years of experience building web applications using modern frameworks.<br/>
+          <span className="text-blue-200 font-bold">MERN Stack Developer</span> with 1+ years of experience building web applications using modern frameworks.<br/>
           I love creating seamless user experiences and robust backend systems.<br/>
           My goal is to deliver <span className="text-blue-300 font-semibold">high-quality, maintainable code</span> and collaborate with teams to bring ideas to life.
         </p>
@@ -88,7 +88,7 @@ const About = () => {
       
       {/* Profile image - shows after scrolling on mobile, on right side on desktop */}
       <div ref={imageRef} className="flex-1 flex justify-center items-start w-full about-slide-in-right about-delay-200 md:-mt-56">
-        <img src={newImg} alt="Portrait of Raj Laiya, Full Stack Developer" className="about-profile-img w-full max-w-2xl h-auto object-contain" loading="lazy" />
+        <img src={newImg} alt="Portrait of Raj Laiya, MERN Stack Developer" className="about-profile-img w-full max-w-2xl h-auto object-contain" loading="lazy" />
       </div>
     </div>
   </div>

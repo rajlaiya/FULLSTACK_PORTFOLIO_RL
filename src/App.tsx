@@ -15,8 +15,8 @@ import './mobile.css'; // Adjust the path if needed
 import Freelancer from './Components/freelancer';
 import Socialmedia from './Components/Socialmedia';
 
-const META_TITLE = 'Raj Laiya | Full Stack Developer Portfolio (React, Vue, Node.js, TypeScript)';
-const META_DESCRIPTION = 'Portfolio of Raj Laiya, a full-stack developer specializing in React, Vue, Node.js, and TypeScript. Explore SaaS, e-commerce, and 3D web projects and hire me for high-performance, secure builds.';
+const META_TITLE = 'Raj Laiya | MERN Stack Developer Portfolio (React, Vue, Node.js, TypeScript)';
+const META_DESCRIPTION = 'Portfolio of Raj Laiya, a MERN Stack developer specializing in React, Vue, Node.js, and TypeScript. Explore SaaS, e-commerce, and 3D web projects and hire me for high-performance, secure builds.';
 const BASE_URL = 'https://rajlaiya.github.io/portfolio/';
 
 const sectionComponents = {
@@ -104,7 +104,7 @@ function App() {
           '@context': 'https://schema.org',
           '@type': 'Person',
           name: 'Raj Laiya',
-          jobTitle: 'Full Stack Developer',
+          jobTitle: 'MERN Stack Developer',
           url: BASE_URL,
           image: 'https://rajlaiya.github.io/portfolio/assets/IMG_Raj.jpg',
           email: 'mailto:rajlaiya2017@gmail.com',
@@ -122,7 +122,7 @@ function App() {
             'TypeScript',
             'Tailwind CSS',
             'REST APIs',
-            'Full Stack Development',
+            'MERN Stack Development',
             'Frontend Development',
             'Backend Development',
             'SEO',

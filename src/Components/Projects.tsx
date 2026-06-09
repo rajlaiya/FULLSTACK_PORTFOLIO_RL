@@ -74,7 +74,7 @@ export const projects = [
 		image: portfolioImg,
 		live: 'https://raj-laiya-developer-portfolio.netlify.app/',
 		status: 'Done',
-		stack: 'Fullstack' as StackType,
+		stack: 'MERN Stack' as StackType,
 		mini: false,
 	},
 

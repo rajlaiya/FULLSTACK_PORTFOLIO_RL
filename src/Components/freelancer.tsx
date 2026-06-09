@@ -55,7 +55,7 @@ const Freelancer: React.FC = () => {
                 <FaUserTie className="text-6xl text-blue-500 animate__animated animate__bounceIn" title="Freelancer" />
                 <h1 className="text-3xl font-bold mb-2 text-blue-700">Freelancer Profile</h1>
                 <p className="text-lg text-gray-700 dark:text-gray-200 text-center max-w-xl animate__animated animate__fadeInUp font-serif italic">
-                    Welcome to my Freelancer page! I am a passionate fullstack developer with a proven track record of delivering high-quality projects for clients worldwide. Let's build something amazing together!
+                    Welcome to my Freelancer page! I am a passionate MERN Stack developer with a proven track record of delivering high-quality projects for clients worldwide. Let's build something amazing together!
                 </p>
                 <div className="flex items-center gap-4 mt-4 animate__animated animate__pulse animate__infinite">
                     <a
