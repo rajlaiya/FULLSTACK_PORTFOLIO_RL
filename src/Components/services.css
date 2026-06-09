@@ -1,13 +1,13 @@
-/* Services page custom styles */
+/* Services page custom styles - Redesigned to Skills Column list */
 
 .services-profile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
   position: relative;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
   overflow: hidden;
 }
 
@@ -36,6 +36,59 @@
   }
 }
 
+/* Skills list details */
+.skills-column-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-row-item {
+  position: relative;
+  transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+              border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              padding-left 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              padding-right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.6); /* light border */
+}
+
+.dark .skill-row-item {
+  border-bottom: 1px solid rgba(75, 85, 99, 0.3); /* dark border */
+}
+
+.skill-row-item:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+  border-color: rgba(59, 130, 246, 0.4);
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.dark .skill-row-item:hover {
+  background-color: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.skill-row-name {
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Floating hover image styling */
+.floating-hover-image-container {
+  transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+              transform 0.12s cubic-bezier(0.25, 1, 0.5, 1), 
+              scale 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.dark .floating-hover-image-container {
+  background: rgba(17, 24, 39, 0.95);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
+}
+
 .services-footer {
   position: fixed;
   left: 0;
@@ -50,3 +103,4 @@
   z-index: 2;
   border-top: 1px solid #222;
 }
+

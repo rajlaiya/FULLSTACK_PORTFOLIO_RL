@@ -1,77 +1,124 @@
+import React, { useState } from 'react';
 import './services.css';
 import 'animate.css';
 
-const services = [
-	{
-		title: 'Web App Development',
-		description:
-			'Custom, scalable, and high-performance web applications using modern frameworks and best practices.',
-		icon: 'https://img.icons8.com/ios-filled/50/3b82f6/web.png',
-	},
-	{
-		title: 'Photo/Video Editing',
-		description:
-			'Professional editing services for photos and videos, enhancing quality and visual appeal.',
-		icon: 'https://img.icons8.com/ios-filled/50/3b82f6/video-editing.png', // fixed icon
-	},
-	{
-		title: 'Frontend UI Design',
-		description:
-			'Crafting intuitive and visually appealing user interfaces with a focus on user experience and accessibility.',
-		icon: 'https://img.icons8.com/ios-filled/50/3b82f6/design.png', // fixed icon
-	},
-	{
-		title: 'Basic API Integration',
-		description:
-			'Seamless integration of third-party APIs and services for enhanced functionality.',
-		icon: 'https://img.icons8.com/ios-filled/50/3b82f6/api.png',
-	},
-	{
-		title: 'Consulting about Tech',
-		description:
-			'Expert advice on technology solutions, software architecture, and best practices to optimize your projects.',
-		icon: 'https://img.icons8.com/ios-filled/50/3b82f6/consultation.png',
-	},
+const skills = [
+  { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+  { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+  { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+  { name: 'Vue.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
+  { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+  { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+  { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+  { name: 'Postman', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg' },
+  { name: 'REST APIs', icon: 'https://img.icons8.com/ios-filled/50/3b82f6/api-settings.png' },
 ];
 
-const Services = () => (
-	<div className="services-profile animated-bg">
-		<div className="services-content max-w-7xl mx-auto px-3 sm:px-4 animate__animated animate__fadeInDown">
-			<h2 className="text-3xl font-bold mb-8 text-blue-600 dark:text-blue-400">
-				Services
-			</h2>
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6 xl:gap-8 items-stretch">
-				{services.map((service, i) => (
-					<div
-						key={i}
-						className="flex flex-col items-center h-full
-    bg-white/30 dark:bg-gray-800/40 
-    rounded-xl shadow 
-    p-6 xl:p-8 border border-white/30 dark:border-gray-700
-    backdrop-blur-md
-    hover:scale-105 hover:-translate-y-2 hover:shadow-2xl
-    transition-all duration-500 animate__animated animate__zoomIn"
-					>
-						<img
-							src={service.icon}
-							alt={service.title}
-							className="w-14 h-14 mb-4 animate__animated animate__bounceIn"
-						/>
-						<div className="text-lg font-semibold text-gray-900 dark:text-white mb-2 text-center w-full">
-							{service.title}
-						</div>
-						<div className="text-gray-700 dark:text-gray-300 text-sm text-center">
-							{service.description}
-						</div>
-					</div>
-				))}
-			</div>
-		</div>
-		<div className="services-bg-anim"></div>
-		<footer className="services-footer">
-			© 2025 Raj laiya. All rights reserved.
-		</footer>
-	</div>
-);
+const Services = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseEnter = (index: number) => {
+    setHoveredIndex(index);
+    setIsVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsVisible(false);
+  };
+
+  return (
+    <div 
+      className="services-profile animated-bg"
+      onMouseMove={handleMouseMove}
+    >
+      <div className="services-content max-w-4xl mx-auto px-4 py-16 animate__animated animate__fadeInDown w-full">
+        <h2 className="text-4xl font-extrabold mb-12 text-blue-600 dark:text-blue-400 text-center tracking-tight">
+          My Skills & Expertise
+        </h2>
+        
+        <div className="skills-column-list border-t border-gray-200 dark:border-gray-800">
+          {skills.map((skill, index) => {
+            const displayIndex = String(index + 1).padStart(2, '0');
+            return (
+              <div
+                key={index}
+                className="skill-row-item py-6 md:py-8 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between cursor-pointer group transition-all duration-300"
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div className="flex items-center gap-6 md:gap-10">
+                  <span className="skill-row-index text-sm font-mono text-blue-500/70 dark:text-blue-400/50 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors duration-300">
+                    {displayIndex}
+                  </span>
+                  
+                  <span className="skill-row-name text-2xl md:text-4xl font-bold text-gray-800 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:translate-x-3 transition-all duration-300 ease-out">
+                    {skill.name}
+                  </span>
+                </div>
+                
+                {/* Mobile view inline icon */}
+                <div className="block md:hidden">
+                  <img
+                    src={skill.icon}
+                    alt={skill.name}
+                    className="w-10 h-10 object-contain p-1.5 rounded-lg bg-white/40 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700"
+                  />
+                </div>
+
+                {/* Arrow indicator for desktop hover */}
+                <div className="hidden md:block skill-row-arrow opacity-0 group-hover:opacity-100 group-hover:-translate-x-3 transition-all duration-300 ease-out">
+                  <svg 
+                    className="w-8 h-8 text-blue-500 dark:text-blue-400" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2.5" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      
+      {/* Interactive cursor-following hover image */}
+      <div
+        className={`hidden md:flex floating-hover-image-container pointer-events-none fixed left-0 top-0 z-50 rounded-2xl border border-white/40 dark:border-gray-700/50 p-6 bg-white/90 dark:bg-gray-900/90 shadow-2xl backdrop-blur-md items-center justify-center transition-all duration-200 ease-out ${
+          isVisible && hoveredIndex !== null ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+        }`}
+        style={{
+          width: '140px',
+          height: '140px',
+          transform: `translate3d(${mousePos.x + 25}px, ${mousePos.y + 25}px, 0)`,
+        }}
+      >
+        {hoveredIndex !== null && (
+          <img
+            src={skills[hoveredIndex].icon}
+            alt={skills[hoveredIndex].name}
+            className="w-20 h-20 object-contain animate__animated animate__zoomIn animate__faster"
+            key={hoveredIndex} // Reset animation key when index changes
+          />
+        )}
+      </div>
+
+      <div className="services-bg-anim"></div>
+      
+      <footer className="services-footer">
+        © 2025 Raj laiya. All rights reserved.
+      </footer>
+    </div>
+  );
+};
 
 export default Services;
+
