@@ -73,7 +73,7 @@ export const projects = [
 		],
 		image: portfolioImg,
 		live: 'https://raj-laiya-developer-portfolio.netlify.app/',
-		status: 'Done',
+		status: 'done',
 		stack: 'MERN Stack' as StackType,
 		mini: false,
 	},
@@ -164,23 +164,23 @@ export const projects = [
 
 const Counter = () => {
 	const [count, setCount] = useState({
-		done: 0,
+		big: 0,
 		progress: 0,
 		mini: 0,
-		total: 0,
+		completed: 0,
 	});
 	useEffect(() => {
-		const done = projects.filter((p) => p.status === 'done' && !p.mini).length;
-		const progress = projects.filter((p) => p.status === 'progress').length;
+		const big = projects.filter((p) => p.status?.toLowerCase() === 'done' && !p.mini).length;
+		const progress = projects.filter((p) => p.status?.toLowerCase() === 'progress').length;
 		const mini = projects.filter((p) => p.mini).length;
-		const total = projects.length;
-		setCount({ done, progress, mini, total });
+		const completed = projects.filter((p) => p.status?.toLowerCase() === 'done').length;
+		setCount({ big, progress, mini, completed });
 	}, []);
 	return (
 		<div className="flex flex-wrap gap-6 justify-center mb-10">
 			<div className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 rounded-xl px-8 py-6 shadow text-center">
-				<div className="text-3xl font-bold">{count.done}</div>
-				<div className="font-semibold mt-1">Projects Done</div>
+				<div className="text-3xl font-bold">{count.big}</div>
+				<div className="font-semibold mt-1">Big Projects</div>
 			</div>
 			<div className="bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-200 rounded-xl px-8 py-6 shadow text-center">
 				<div className="text-3xl font-bold">{count.progress}</div>
@@ -191,8 +191,8 @@ const Counter = () => {
 				<div className="font-semibold mt-1">Mini Projects</div>
 			</div>
 			<div className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-xl px-8 py-6 shadow text-center">
-				<div className="text-3xl font-bold">{count.total}</div>
-				<div className="font-semibold mt-1">Total Projects</div>
+				<div className="text-3xl font-bold">{count.completed}</div>
+				<div className="font-semibold mt-1">Completed Projects</div>
 			</div>
 		</div>
 	);
@@ -216,9 +216,14 @@ const stackBadgeClass = (v: 'frontend' | 'backend' | 'both') => {
 	}
 };
 
-const MiniProjects = () => (
+interface MiniProjectsProps {
+	hoveredProject: string | null;
+	setHoveredProject: (title: string | null) => void;
+}
+
+const MiniProjects = ({ hoveredProject, setHoveredProject }: MiniProjectsProps) => (
 	<div className="mt-16">
-		<h3 className="text-5xl font-bold mb-6 text-green-600 dark:text-green-400">
+		<h3 className="text-5xl font-bold mb-6 text-green-600 dark:text-green-400 text-center">
 			Mini Projects
 		</h3>
 		<div className="grid md:grid-cols-3 gap-9">
@@ -227,7 +232,15 @@ const MiniProjects = () => (
 				.map((project, idx) => (
 					<div
 						key={idx}
-						className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden flex flex-col"
+						onMouseEnter={() => setHoveredProject(project.title)}
+						onMouseLeave={() => setHoveredProject(null)}
+						className={`bg-white dark:bg-gray-800 rounded-2xl shadow-xl transition-all duration-300 overflow-hidden flex flex-col ${
+							hoveredProject !== null && hoveredProject !== project.title
+								? 'blur-[2px] opacity-50 scale-[0.98]'
+								: hoveredProject === project.title
+								? 'scale-[1.03] z-10 shadow-2xl'
+								: 'hover:shadow-2xl'
+						}`}
 					>
 						<img
 							src={project.image}
@@ -274,74 +287,86 @@ const MiniProjects = () => (
 	</div>
 );
 
-const Projects = () => (
-	<section
-		className="py-20 bg-white dark:bg-gray-900 w-full relative overflow-hidden min-h-screen animate-fade-in-up"
-		id="projects"
-	>
-		{/* Background Animation */}
-		<div className="absolute inset-0 -z-10 overflow-hidden">
-			<div className="absolute top-0 left-1/2 w-[120vw] h-[120vw] -translate-x-1/2 bg-gradient-to-br from-blue-100/40 via-purple-100/30 to-pink-100/20 dark:from-blue-900/30 dark:via-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-spin-slow" />
-			<div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tr from-green-200/30 to-blue-200/10 dark:from-green-900/20 dark:to-blue-900/10 rounded-full blur-2xl animate-pulse" />
-		</div>
-		<div className="container mx-auto px-3 sm:px-4 max-w-9xl">
-			<h2 className="text-5xl font-bold mb-8 text-blue-600 dark:text-blue-400">
-				Projects
-			</h2>
-			<Counter />
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
-				{projects
-					.filter((p) => !p.mini)
-					.map((project, idx) => (
-						<div
-							key={idx}
-							className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden flex flex-col w-full max-w-md min-h-[380px] mx-auto"
-						>
-							<img
-								src={project.image}
-								alt={project.title}
-								className="h-40 w-full object-cover"
-								loading="lazy"
-							/>
-														<div className="p-4 flex-1 flex flex-col">
-																{project.stack && (
-																	<span className={`inline-block mb-2 px-2 py-1 rounded text-[11px] font-semibold ${stackBadgeClass(project.stack)}`}>
-																		{stackLabel(project.stack)}
-																	</span>
-																)}
-								<h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
-									{project.title}
-								</h3>
-								<p className="text-gray-700 dark:text-gray-300 mb-4 flex-1">
-									{project.description}
-								</p>
-								<div className="flex flex-wrap gap-2 mb-4">
-									{project.tech.map((tech, i) => (
-										<span
-											key={i}
-											className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-2 py-1 rounded text-xs font-mono"
+const Projects = () => {
+	const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+
+	return (
+		<section
+			className="py-20 bg-white dark:bg-gray-900 w-full relative overflow-hidden min-h-screen animate-fade-in-up"
+			id="projects"
+		>
+			{/* Background Animation */}
+			<div className="absolute inset-0 -z-10 overflow-hidden">
+				<div className="absolute top-0 left-1/2 w-[120vw] h-[120vw] -translate-x-1/2 bg-gradient-to-br from-blue-100/40 via-purple-100/30 to-pink-100/20 dark:from-blue-900/30 dark:via-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-spin-slow" />
+				<div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tr from-green-200/30 to-blue-200/10 dark:from-green-900/20 dark:to-blue-900/10 rounded-full blur-2xl animate-pulse" />
+			</div>
+			<div className="container mx-auto px-3 sm:px-4 max-w-9xl">
+				<h2 className="text-5xl font-bold mb-8 text-blue-600 dark:text-blue-400 text-center">
+					Deployed Work
+				</h2>
+				<Counter />
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
+					{projects
+						.filter((p) => !p.mini)
+						.map((project, idx) => (
+							<div
+								key={idx}
+								onMouseEnter={() => setHoveredProject(project.title)}
+								onMouseLeave={() => setHoveredProject(null)}
+								className={`bg-white dark:bg-gray-800 rounded-2xl shadow-xl transition-all duration-300 overflow-hidden flex flex-col w-full max-w-md min-h-[380px] mx-auto ${
+									hoveredProject !== null && hoveredProject !== project.title
+										? 'blur-[2px] opacity-50 scale-[0.98]'
+										: hoveredProject === project.title
+										? 'scale-[1.03] z-10 shadow-2xl'
+										: 'hover:shadow-2xl'
+								}`}
+							>
+								<img
+									src={project.image}
+									alt={project.title}
+									className="h-40 w-full object-cover"
+									loading="lazy"
+								/>
+															<div className="p-4 flex-1 flex flex-col">
+																	{project.stack && (
+																		<span className={`inline-block mb-2 px-2 py-1 rounded text-[11px] font-semibold ${stackBadgeClass(project.stack)}`}>
+																			{stackLabel(project.stack)}
+																		</span>
+																	)}
+									<h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+										{project.title}
+									</h3>
+									<p className="text-gray-700 dark:text-gray-300 mb-4 flex-1">
+										{project.description}
+									</p>
+									<div className="flex flex-wrap gap-2 mb-4">
+										{project.tech.map((tech, i) => (
+											<span
+												key={i}
+												className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-2 py-1 rounded text-xs font-mono"
+											>
+												{tech}
+											</span>
+										))}
+									</div>
+									<div className="flex gap-4 mt-auto">
+										<a
+											href={project.live}
+											className="text-green-600 dark:text-green-400 hover:underline font-semibold"
+											target="_blank"
+											rel="noopener noreferrer"
 										>
-											{tech}
-										</span>
-									))}
-								</div>
-								<div className="flex gap-4 mt-auto">
-									<a
-										href={project.live}
-										className="text-green-600 dark:text-green-400 hover:underline font-semibold"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Live Demo
-									</a>
+											Live Demo
+										</a>
+									</div>
 								</div>
 							</div>
-						</div>
-					))}
+						))}
+				</div>
+				<MiniProjects hoveredProject={hoveredProject} setHoveredProject={setHoveredProject} />
 			</div>
-			<MiniProjects />
-		</div>
-	</section>
-);
+		</section>
+	);
+};
 
 export default Projects;
