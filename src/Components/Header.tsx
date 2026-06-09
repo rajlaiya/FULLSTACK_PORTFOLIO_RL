@@ -91,29 +91,23 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
         </defs>
       </svg>
       <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/55 dark:bg-gray-900/45 border-b border-black/5 dark:border-white/10 shadow-sm transition-colors duration-300">
-        <div className="relative mx-auto w-full max-w-6xl px-4 md:px-6 py-2 md:py-3">
-          <a href="#hero" className="flex h-14 md:h-20 items-center justify-center md:justify-start select-none overflow-visible">
-            <img
-              src={serviceLogo}
-              alt="Coding With RL"
-              className="h-24 md:h-36 -my-4 md:-my-8 w-auto object-contain transition-all duration-300"
-              style={
-                theme === 'dark'
-                  ? { filter: 'url(#remove-black-mask)' }
-                  : { filter: 'url(#remove-black-mask) invert(1)' }
-              }
-            />
-          </a>
-        <div className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 flex items-center gap-4 md:gap-6">
-          <button
-            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 shadow-md transition hover:bg-blue-200 dark:hover:bg-gray-700"
-            aria-label="Open menu"
-            onClick={() => setMobileMenu((m) => !m)}
-            type="button"
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
-          </button>
-          <nav className="hidden md:flex items-center space-x-8">
+        <div className="relative w-full px-4 md:px-8 py-2 md:py-3">
+          <div className="flex h-14 md:h-20 items-center justify-start select-none overflow-visible">
+            <a href="#hero" className="flex items-center">
+              <img
+                src={serviceLogo}
+                alt="Coding With RL"
+                className="h-24 md:h-36 -my-4 md:-my-8 w-auto object-contain transition-all duration-300"
+                style={
+                  theme === 'dark'
+                    ? { filter: 'url(#remove-black-mask)' }
+                    : { filter: 'url(#remove-black-mask) invert(1)' }
+                }
+              />
+            </a>
+          </div>
+
+          <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <a href="#hero" className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Home</a>
             <a href="#about" className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">About</a>
             <a href="#skills" className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Skills</a>
@@ -133,11 +127,14 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
                 </div>
               )}
             </div>
+          </nav>
+
+          <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 flex items-center gap-4">
             <button
               type="button"
               onClick={toggleTheme}
               aria-pressed={theme === 'dark'}
-              className="ml-4 group relative flex items-center gap-2 rounded-full border border-blue-200/70 dark:border-gray-700/80 bg-gradient-to-r from-blue-100/80 via-white/60 to-blue-50/80 dark:from-gray-800/80 dark:via-gray-800/60 dark:to-gray-900/80 px-2 py-1 text-sm font-medium text-black dark:text-white shadow-sm transition-colors duration-300 hover:border-blue-400/70 dark:hover:border-blue-500/60 hover:from-blue-100 hover:to-blue-50 dark:hover:from-gray-800 dark:hover:to-gray-900"
+              className="group relative flex items-center gap-2 rounded-full border border-blue-200/70 dark:border-gray-700/80 bg-gradient-to-r from-blue-100/80 via-white/60 to-blue-50/80 dark:from-gray-800/80 dark:via-gray-800/60 dark:to-gray-900/80 px-2 py-1 text-sm font-medium text-black dark:text-white shadow-sm transition-colors duration-300 hover:border-blue-400/70 dark:hover:border-blue-500/60 hover:from-blue-100 hover:to-blue-50 dark:hover:from-gray-800 dark:hover:to-gray-900"
             >
               <span className="sr-only">Toggle theme</span>
               <span className="relative inline-flex h-7 w-14 items-center rounded-full bg-gradient-to-r from-blue-200/80 via-blue-100/70 to-blue-200/80 dark:from-gray-700/80 dark:via-gray-800/80 dark:to-gray-900/80 transition-colors duration-300">
@@ -155,9 +152,17 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
                 {theme === 'light' ? 'Light' : 'Dark'}
               </span>
             </button>
-          </nav>
+
+            <button
+              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 shadow-md transition hover:bg-blue-200 dark:hover:bg-gray-700"
+              aria-label="Open menu"
+              onClick={() => setMobileMenu((m) => !m)}
+              type="button"
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+          </div>
         </div>
-      </div>
       {/* Mobile menu overlay */}
       {mobileMenu && (
         <>
