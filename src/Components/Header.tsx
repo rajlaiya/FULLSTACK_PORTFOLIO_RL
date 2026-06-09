@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import React from 'react';
+import serviceLogo from '../assets/service_logo.png';
 
 interface HeaderProps {
   theme: string;
@@ -73,9 +74,36 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
   }, []);
 
   return (
-    <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/55 dark:bg-gray-900/45 border-b border-black/5 dark:border-white/10 shadow-sm transition-colors duration-300">
-      <div className="relative mx-auto w-full max-w-6xl px-4 md:px-6 py-2 md:py-3">
-        <span className="flex h-14 md:h-20 items-center justify-center md:justify-start whitespace-nowrap text-center md:text-left text-lg md:text-2xl font-semibold text-blue-600 dark:text-blue-400 tracking-tight leading-none">Raj laiya</span>
+    <>
+      <svg width="0" height="0" style={{ position: 'absolute', pointerEvents: 'none', width: 0, height: 0 }}>
+        <defs>
+          <filter id="remove-black-mask">
+            <feColorMatrix
+              type="matrix"
+              values="
+                1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                3 3 3 0 -0.5
+              "
+            />
+          </filter>
+        </defs>
+      </svg>
+      <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/55 dark:bg-gray-900/45 border-b border-black/5 dark:border-white/10 shadow-sm transition-colors duration-300">
+        <div className="relative mx-auto w-full max-w-6xl px-4 md:px-6 py-2 md:py-3">
+          <a href="#hero" className="flex h-14 md:h-20 items-center justify-center md:justify-start select-none overflow-visible">
+            <img
+              src={serviceLogo}
+              alt="Coding With RL"
+              className="h-24 md:h-36 -my-4 md:-my-8 w-auto object-contain transition-all duration-300"
+              style={
+                theme === 'dark'
+                  ? { filter: 'url(#remove-black-mask)' }
+                  : { filter: 'url(#remove-black-mask) invert(1)' }
+              }
+            />
+          </a>
         <div className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 flex items-center gap-4 md:gap-6">
           <button
             className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 shadow-md transition hover:bg-blue-200 dark:hover:bg-gray-700"
@@ -164,6 +192,7 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
         </>
       )}
     </header>
+    </>
   );
 };
 
