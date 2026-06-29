@@ -234,7 +234,6 @@ function App() {
   };
 
   const SectionComponent = (sectionComponents as any)[section] || Hero3D;
-  const showFooter = section !== 'hero' && section !== 'about';
 
   if (loading) {
     return (
