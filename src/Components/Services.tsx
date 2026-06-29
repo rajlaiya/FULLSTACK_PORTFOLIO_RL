@@ -187,9 +187,7 @@ const Services = () => {
 
       <div className="services-bg-anim"></div>
       
-      <footer className="services-footer">
-        © 2025 Raj laiya. All rights reserved.
-      </footer>
+
     </div>
   );
 };

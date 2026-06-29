@@ -260,11 +260,7 @@ function App() {
           <FaArrowUp className="w-5 h-5 animate-pulse" />
         </button>
       )}
-      {showFooter && (
-        <footer className="text-center py-6 text-gray-500 text-sm bg-white dark:bg-gray-800 border-t mt-10 dark:text-gray-400">
-          &copy; {new Date().getFullYear()} Raj laiya. All rights reserved.
-        </footer>
-      )}
+
     </div>
   );
 }

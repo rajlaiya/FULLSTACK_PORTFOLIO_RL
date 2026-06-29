@@ -115,24 +115,18 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme, activeSection }) => {
             <button
               type="button"
               onClick={toggleTheme}
-              aria-pressed={theme === 'dark'}
-              className="group relative flex items-center gap-2 rounded-full border border-blue-200/70 dark:border-gray-700/80 bg-gradient-to-r from-blue-100/80 via-white/60 to-blue-50/80 dark:from-gray-800/80 dark:via-gray-800/60 dark:to-gray-900/80 px-2 py-1 text-sm font-medium text-black dark:text-white shadow-sm transition-colors duration-300 hover:border-blue-400/70 dark:hover:border-blue-500/60 hover:from-blue-100 hover:to-blue-50 dark:hover:from-gray-800 dark:hover:to-gray-900"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-blue-200/50 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 text-black dark:text-white shadow-sm transition-all duration-300 hover:scale-110 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md hover:shadow-blue-500/10 dark:hover:shadow-blue-900/30"
             >
-              <span className="sr-only">Toggle theme</span>
-              <span className="relative inline-flex h-7 w-14 items-center rounded-full bg-gradient-to-r from-blue-200/80 via-blue-100/70 to-blue-200/80 dark:from-gray-700/80 dark:via-gray-800/80 dark:to-gray-900/80 transition-colors duration-300">
-                <span
-                  className={`absolute left-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-md ring-1 ring-black/5 transition-transform duration-300 ease-out ${theme === 'dark' ? 'translate-x-7 bg-gray-100' : 'translate-x-0 bg-white'}`}
-                >
-                  {theme === 'light' ? (
-                    <svg className="h-3.5 w-3.5 text-amber-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 17a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.42 0l.71.7a1 1 0 1 1-1.41 1.42l-.72-.71a1 1 0 0 1 0-1.41Zm12.73 12.72a1 1 0 0 1 1.42 0l.71.71a1 1 0 1 1-1.41 1.42l-.72-.71a1 1 0 0 1 0-1.42ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm17 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 1.42 0l.71.71a1 1 0 1 1-1.41 1.42l-.72-.71a1 1 0 0 1 0-1.42Zm12.73-12.72a1 1 0 0 1 1.42 0l.71.7a1 1 0 1 1-1.41 1.42l-.72-.71a1 1 0 0 1 0-1.41Z"/></svg>
-                  ) : (
-                    <svg className="h-3.5 w-3.5 text-blue-300" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 1 0 21 12.79Z"/></svg>
-                  )}
-                </span>
-              </span>
-              <span className="hidden sm:inline text-xs font-semibold text-blue-700 dark:text-blue-200 tracking-tight transition-colors duration-300">
-                {theme === 'light' ? 'Light' : 'Dark'}
-              </span>
+              {theme === 'light' ? (
+                <svg className="h-5 w-5 text-amber-500 transition-transform duration-500 hover:rotate-45" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 17a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.42 0l.71.7a1 1 0 1 1-1.41 1.42l-.72-.71a1 1 0 0 1 0-1.41Zm12.73 12.72a1 1 0 0 1 1.42 0l.71.71a1 1 0 1 1-1.41 1.42l-.72-.71a1 1 0 0 1 0-1.42ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm17 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 18.36a1 1 0 0 1 1.42 0l.71.71a1 1 0 1 1-1.41 1.42l-.72-.71a1 1 0 0 1 0-1.42Zm12.73-12.72a1 1 0 0 1 1.42 0l.71.7a1 1 0 1 1-1.41 1.42l-.72-.71a1 1 0 0 1 0-1.41Z"/>
+                </svg>
+              ) : (
+                <svg className="h-5 w-5 text-blue-300 transition-transform duration-500 hover:-rotate-12" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 1 0 21 12.79Z"/>
+                </svg>
+              )}
             </button>
 
             <button
@@ -172,7 +166,6 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme, activeSection }) => {
 
         <div className="nav-overlay-footer" onClick={(e) => e.stopPropagation()}>
           <span>Website developed by Raj Laiya</span>
-          <span>&copy;&nbsp;{new Date().getFullYear()} All rights reserved</span>
         </div>
       </nav>
     </>
