@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import React from 'react';
 import serviceLogo from '../assets/service_logo.png';
+import './header-overlay.css';
 
 interface HeaderProps {
   theme: string;
@@ -8,59 +9,47 @@ interface HeaderProps {
   activeSection?: string;
 }
 
+const NAV_ITEMS = [
+  { href: '#hero', label: 'Home', key: 'hero' },
+  { href: '#about', label: 'About', key: 'about' },
+  { href: '#skills', label: 'Skills', key: 'skills' },
+  { href: '#projects', label: 'Projects', key: 'projects' },
+  { href: '#services', label: 'Services', key: 'services' },
+  { href: '#socialmedia', label: 'Social', key: 'socialmedia' },
+  { href: '#contact', label: 'Contact', key: 'contact' },
+];
+
 const Header: React.FC<HeaderProps> = ({ theme, setTheme, activeSection }) => {
-  const [dropdown, setDropdown] = useState(false);
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const mobileMenuRef = useRef<HTMLElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement | null>(null);
 
+  // Close the overlay when navigating to a new section
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setDropdown(false);
-      }
-    }
-    if (dropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [dropdown]);
-
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    function handleClickOutsideMobile(event: MouseEvent | TouchEvent) {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        setMobileMenu(false);
-      }
-    }
-    if (mobileMenu) {
-      document.addEventListener('mousedown', handleClickOutsideMobile);
-      document.addEventListener('touchstart', handleClickOutsideMobile);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutsideMobile);
-      document.removeEventListener('touchstart', handleClickOutsideMobile);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutsideMobile);
-      document.removeEventListener('touchstart', handleClickOutsideMobile);
-    };
-  }, [mobileMenu]);
-
-  // Hide mobile menu on navigation
-  useEffect(() => {
-    if (!mobileMenu) return;
-    const close = () => setMobileMenu(false);
+    if (!menuOpen) return;
+    const close = () => setMenuOpen(false);
     window.addEventListener('hashchange', close);
     return () => window.removeEventListener('hashchange', close);
-  }, [mobileMenu]);
+  }, [menuOpen]);
+
+  // Close on Escape, and lock body scroll while the overlay is open
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [menuOpen]);
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
-
-  const headerRef = useRef<HTMLElement | null>(null);
 
   // Expose header height as CSS variable so sections can size to viewport minus header
   useEffect(() => {
@@ -91,7 +80,14 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme, activeSection }) => {
           </filter>
         </defs>
       </svg>
-      <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/55 dark:bg-gray-900/45 border-b border-black/5 dark:border-white/10 shadow-sm transition-colors duration-300">
+      <header
+        ref={headerRef}
+        className={`fixed top-0 left-0 right-0 z-50 border-b shadow-sm transition-colors duration-300 ${
+          menuOpen
+            ? 'bg-transparent border-transparent shadow-none'
+            : 'backdrop-blur-md bg-white/55 dark:bg-gray-900/45 border-black/5 dark:border-white/10'
+        }`}
+      >
         <div className="relative w-full px-4 md:px-8 py-2 md:py-3">
           <div className="flex h-14 md:h-20 items-center justify-start select-none overflow-visible">
             <a href="#hero" className="flex items-center">
@@ -108,33 +104,14 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme, activeSection }) => {
             </a>
           </div>
 
-          <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <a href="#hero" className={`font-medium transition-colors ${activeSection === 'hero' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>Home</a>
-            <a href="#about" className={`font-medium transition-colors ${activeSection === 'about' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>About</a>
-            <a href="#skills" className={`font-medium transition-colors ${activeSection === 'skills' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>Skills</a>
-            <a href="#projects" className={`font-medium transition-colors ${activeSection === 'projects' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>Projects</a>
-            <a href="#contact" className={`font-medium transition-colors ${activeSection === 'contact' ? 'text-blue-600 dark:text-blue-400 font-semibold' : 'text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`}>Contact</a>
-            <div className="relative inline-block" ref={dropdownRef}>
-              <button
-                onClick={() => setDropdown((d) => !d)}
-                className={`ml-4 px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 ${
-                  activeSection === 'services' || activeSection === 'socialmedia'
-                    ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm'
-                    : 'bg-blue-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-gray-700'
-                }`}
-              >
-                Other <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-              </button>
-              {dropdown && (
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-lg shadow-lg z-50 border border-blue-100 dark:border-gray-800 animate-fade-in">
-                  <a href="#services" className={`block px-4 py-2 transition-colors ${activeSection === 'services' ? 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400 font-semibold' : 'hover:bg-blue-50 dark:hover:bg-gray-800 text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`} onClick={() => setDropdown(false)}>Services</a>
-                  <a href="#socialmedia" className={`block px-4 py-2 transition-colors ${activeSection === 'socialmedia' ? 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400 font-semibold' : 'hover:bg-blue-50 dark:hover:bg-gray-800 text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400'}`} onClick={() => setDropdown(false)}>Socialmedia</a>
-                </div>
-              )}
-            </div>
-          </nav>
+          <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 flex items-center gap-3 md:gap-4">
+            <a
+              href="#contact"
+              className="hidden sm:inline text-xs font-bold uppercase tracking-widest text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Contact
+            </a>
 
-          <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 flex items-center gap-4">
             <button
               type="button"
               onClick={toggleTheme}
@@ -159,49 +136,45 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme, activeSection }) => {
             </button>
 
             <button
-              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-gray-800 text-blue-700 dark:text-blue-300 shadow-md transition hover:bg-blue-200 dark:hover:bg-gray-700"
-              aria-label="Open menu"
-              onClick={() => setMobileMenu((m) => !m)}
               type="button"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((m) => !m)}
+              className={`nav-toggle-btn ${menuOpen ? 'is-open' : ''}`}
             >
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+              <span className="nav-toggle-bar bar-top" />
+              <span className="nav-toggle-bar bar-mid" />
+              <span className="nav-toggle-bar bar-bottom" />
             </button>
           </div>
         </div>
-      {/* Mobile menu overlay */}
-      {mobileMenu && (
-        <>
-          <div className="mobile-sidebar-backdrop" onClick={() => setMobileMenu(false)} />
-          <nav ref={mobileMenuRef} className="mobile-sidebar-menu" onClick={e => e.stopPropagation()}>
-            <button
-              type="button"
-              className="close-btn"
-              aria-label="Close menu"
-              onClick={() => setMobileMenu(false)}
-            >
-              ×
-            </button>
-            <a className={`menu-item ${activeSection === 'hero' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#hero" onClick={() => setMobileMenu(false)}>Home</a>
-            <a className={`menu-item ${activeSection === 'about' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#about" onClick={() => setMobileMenu(false)}>About</a>
-            <a className={`menu-item ${activeSection === 'skills' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#skills" onClick={() => setMobileMenu(false)}>Skills</a>
-            <a className={`menu-item ${activeSection === 'projects' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#projects" onClick={() => setMobileMenu(false)}>Projects</a>
-            <a className={`menu-item ${activeSection === 'contact' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#contact" onClick={() => setMobileMenu(false)}>Contact</a>
-            <a className={`menu-item ${activeSection === 'services' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#services" onClick={() => setMobileMenu(false)}>Services</a>
-            <a className={`menu-item ${activeSection === 'socialmedia' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 font-semibold' : ''}`} href="#socialmedia" onClick={() => setMobileMenu(false)}>Socialmedia</a>
-            <button
-              type="button"
-              className="menu-item"
-              onClick={() => {
-                toggleTheme();
-                setMobileMenu(false);
-              }}
-            >
-              {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-            </button>
-          </nav>
-        </>
-      )}
-    </header>
+      </header>
+
+      <nav
+        ref={menuRef}
+        className={`nav-overlay ${menuOpen ? 'is-open' : ''}`}
+        aria-hidden={!menuOpen}
+        onClick={() => setMenuOpen(false)}
+      >
+        <ul className="nav-overlay-list" onClick={(e) => e.stopPropagation()}>
+          {NAV_ITEMS.map((item) => (
+            <li key={item.key}>
+              <a
+                href={item.href}
+                className={`nav-overlay-link ${activeSection === item.key ? 'is-active' : ''}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="nav-overlay-footer" onClick={(e) => e.stopPropagation()}>
+          <span>Website developed by Raj Laiya</span>
+          <span>&copy;&nbsp;{new Date().getFullYear()} All rights reserved</span>
+        </div>
+      </nav>
     </>
   );
 };

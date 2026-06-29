@@ -1,19 +1,5 @@
 /* Responsive styles for mobile and tablet */
 
-/* Mobile sidebar backdrop - works on all screen sizes */
-.mobile-sidebar-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.35);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 90;
-  cursor: pointer;
-}
-.dark .mobile-sidebar-backdrop {
-  background: rgba(2, 6, 23, 0.45);
-}
-
 @media (max-width: 1024px) {
   html, body {
     font-size: 16px;
@@ -69,121 +55,6 @@
     align-items: center !important;
   }
   
-  /* Mobile menu hamburger button */
-  header > div > div > button {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 2.5rem !important;
-    height: 2.5rem !important;
-    padding: 0 !important;
-    background: rgba(59, 130, 246, 0.1) !important;
-    border-radius: 9999px !important;
-  }
-  
-  header > div > div > button svg {
-    display: block !important;
-    width: 1.25rem !important;
-    height: 1.25rem !important;
-    stroke: currentColor !important;
-    stroke-width: 2 !important;
-  }
-  
-  /* Mobile overlay menu - Chrome-style panel */
-  .mobile-sidebar-menu {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: calc(var(--nav-h, 64px) - 0.5rem);
-    right: 1rem;
-    left: auto;
-    transform-origin: top right;
-    width: min(80vw, 320px);
-    max-height: calc(100vh - var(--nav-h, 64px) - 2.5rem);
-    padding: 0.75rem;
-    border-radius: 18px;
-    background: rgba(248, 250, 252, 0.95);
-    color: #1f2937;
-    border: 1px solid rgba(148, 163, 184, 0.22);
-    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.18),
-                0 12px 24px rgba(15, 23, 42, 0.12);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    gap: 0.25rem;
-    overflow-y: auto;
-    z-index: 100;
-    animation: chrome-menu-in 0.22s cubic-bezier(.4, 0, .2, 1);
-  }
-  .dark .mobile-sidebar-menu {
-    background: rgba(15, 23, 42, 0.94);
-    color: #e2e8f0;
-    border: 1px solid rgba(71, 85, 105, 0.55);
-    box-shadow: 0 26px 52px rgba(2, 6, 23, 0.55),
-                0 12px 30px rgba(15, 23, 42, 0.35);
-  }
-  .mobile-sidebar-menu .menu-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.8rem 1rem;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: inherit;
-    text-decoration: none;
-    letter-spacing: 0;
-    text-transform: none;
-    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
-    border: none;
-    background: transparent;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-  }
-  .mobile-sidebar-menu .menu-item + .menu-item {
-    margin-top: 0.15rem;
-  }
-  .mobile-sidebar-menu .menu-item:hover,
-  .mobile-sidebar-menu .menu-item:focus {
-    background: rgba(59, 130, 246, 0.08);
-    color: #1d4ed8;
-  }
-  .dark .mobile-sidebar-menu .menu-item:hover,
-  .dark .mobile-sidebar-menu .menu-item:focus {
-    background: rgba(59, 130, 246, 0.18);
-    color: #bfdbfe;
-  }
-  .mobile-sidebar-menu .menu-item:active {
-    transform: translateY(1px);
-  }
-  .mobile-sidebar-menu .close-btn {
-    position: absolute;
-    top: 0.45rem;
-    right: 0.45rem;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.75rem;
-    border: none;
-    background: transparent;
-    color: inherit;
-    font-size: 1.2rem;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-  .mobile-sidebar-menu .close-btn:hover,
-  .mobile-sidebar-menu .close-btn:focus {
-    background: rgba(148, 163, 184, 0.18);
-    color: #0f172a;
-  }
-  .dark .mobile-sidebar-menu .close-btn:hover,
-  .dark .mobile-sidebar-menu .close-btn:focus {
-    background: rgba(71, 85, 105, 0.35);
-    color: #f8fafc;
-  }
   #resume {
     display: none !important;
   }
@@ -232,17 +103,6 @@
     gap: 2.5vmax !important;
     align-items: center !important;
     justify-content: center !important;
-  }
-}
-
-@keyframes chrome-menu-in {
-  0% {
-    opacity: 0;
-    transform: translateY(-8px) scale(0.96);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
   }
 }
 
